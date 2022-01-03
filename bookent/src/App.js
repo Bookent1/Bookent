@@ -1,6 +1,6 @@
 import './App.css';
 import React, { lazy, Suspense } from 'react';
-import { HasRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { AuthProvider } from './AuthContext'
 import { VerifyAuth } from './VerifyAuth'
 import Chat from './components/chat';
