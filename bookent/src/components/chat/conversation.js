@@ -25,8 +25,8 @@ export default function Conversation({ conversation, currentUser }) {
         className={BookCss.conversationImg}
         src={
           user?.profileImg ?
-            `${process.env.API_URL}/usersImages/${user.profileImg}`
-            :
+          `${user.profileImg}`
+          :
             '/assets/user.svg'
         }
         alt="user"

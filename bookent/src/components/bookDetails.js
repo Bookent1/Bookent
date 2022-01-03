@@ -235,7 +235,7 @@ function BookDetails() {
                                 <img
                                     src={
                                         owner?.profileImg ?
-                                            `${process.env.REACT_APP_API_URL}/usersImages/${owner.profileImg}`
+                                            `${owner.profileImg}`
                                             :
                                             '/assets/user.svg'
                                     }

@@ -7,7 +7,7 @@ export default function Message({ message, own ,owner}) {
       <div className={BookCss.messageTop}>
         <img
           className={BookCss.messageImg}
-          src={owner.profileImg &&`${process.env.REACT_APP_API_URL}/usersImages/${owner.profileImg}` || '/assets/user.svg'}
+          src={owner.profileImg &&`${owner.profileImg}` || '/assets/user.svg'}
           alt={owner.username}
         />
         <p className={BookCss.messageText}>{message.text}</p>

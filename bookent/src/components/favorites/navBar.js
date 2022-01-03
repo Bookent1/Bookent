@@ -92,7 +92,7 @@ function NavBar(props) {
 
                         <Link to='/profile'>
                             <div className={RestCss.profile}>
-                                <img src={user && user.profileImg && `${process.env.REACT_APP_API_URL}/usersImages/${user.profileImg}` || '/assets/user.svg'} alt='profile' />
+                                <img src={user && user.profileImg && `${user.profileImg}` || '/assets/user.svg'} alt='profile' />
                                 <span>{user && user.username}</span>
                             </div>
                         </Link>

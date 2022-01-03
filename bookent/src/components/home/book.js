@@ -18,7 +18,7 @@ function Book({ book, addToFav }) {
 
     return (
         <>
-            <div className={HomeCss.book} style={{ backgroundImage: book.coverPhoto ? `url(${process.env.REACT_APP_API_URL}/booksImages/${book.coverPhoto})` : `url(${defaultCover})` }}>
+            <div className={HomeCss.book} style={{ backgroundImage: book.coverPhoto ? `url(${book.coverPhoto})` : `url(${defaultCover})` }}>
                 <div className={HomeCss.bookdetails}>
                     <Link to={{ pathname: `/Book/${book._id}`, state: { book } }}>
                         <p className={HomeCss.bookname}>{book.bookName}</p>

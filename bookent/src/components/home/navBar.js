@@ -131,7 +131,7 @@ function NavBar(props) {
 
                         <Link to='/profile'>
                             <div className={HomeCss.profile}>
-                                <img src={user.profileImg && `${process.env.REACT_APP_API_URL}/usersImages/${user.profileImg}` || '/assets/user.svg'} alt='profile' />
+                                <img src={user.profileImg && `${user.profileImg}` || '/assets/user.svg'} alt='profile' />
                                 <span>{user.username}</span>
                             </div>
                         </Link>

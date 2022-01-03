@@ -78,7 +78,7 @@ function EditProfile() {
           <form className={classes.editForm} onSubmit={edit}>
             <div className={classes.choosePicture__div}>
               <div className={classes.photoContainer}>
-                <img src={chosedImg || user.profileImg && `${process.env.REACT_APP_API_URL}/usersImages/${user.profileImg}` || '/assets/user.svg'} alt='profile image'></img>
+                <img src={chosedImg || user.profileImg && `${user.profileImg}` || '/assets/user.svg'} alt='profile image'></img>
               </div>
               <div className={classes.chooseFileContainer}>
                 <label className={classes.customfileupload}>

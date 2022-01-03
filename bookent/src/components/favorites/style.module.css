@@ -678,9 +678,13 @@ a {
 }
 
 .main .books .bookslist .book .bookdetails div .bookdesc {
+  max-height: 20vmin;
   font-size: 1.8vw;
   word-wrap: break-word;
   color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: break-spaces;
 }
 
 .main .books .bookslist .book .bookdetails div .edit {
