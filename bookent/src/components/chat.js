@@ -38,7 +38,7 @@ function Chat() {
 
 
     useEffect(() => {
-        socket.current = io(`ws:${process.env.REACT_APP_CHAT_API}`, { transports: ['websocket'], upgrade: false });
+        socket.current = io(`${process.env.REACT_APP_CHAT_API}`, { transports: ['websocket'], upgrade: false });
         setconnected(true)
         socket.current.on("getMessage", (data) => {
             setArrivalMessage({
