@@ -10,7 +10,6 @@ import Details from './bookDetails/details';
 import Message from './chat/message'
 import { io } from "socket.io-client";
 
-
 function BookDetails() {
     const location = useLocation()
     const { book } = location.state ? location.state : null
@@ -25,7 +24,7 @@ function BookDetails() {
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [owner, setowner] = useState({});
-    const [newConv, setnewConv] = useState(false)
+    const [newConv, setnewConv] = useState()
     const socket = useRef();
     const scrollRef = useRef();
     const [startChat, setstartChat] = useState(false)
@@ -95,7 +94,7 @@ function BookDetails() {
 
     function startConv(params) {
         setstartChat(true)
-        if (conversations.length === 0) {
+        if (conversations?.length === 0 && !currentChat) {
             let senderId = userId
             let receiverId = book.ownerId
             axios.post(`${process.env.REACT_APP_API_URL}/newConv`, { senderId, receiverId })
@@ -106,9 +105,8 @@ function BookDetails() {
 
 
 
-
     useEffect(() => {
-        socket.current = io(`ws:${process.env.CHAT_API}`);
+        socket.current = io(`${process.env.REACT_APP_CHAT_API}`, { transports: ['websocket'], upgrade: false });
         setconnected(true)
         socket.current.on("getMessage", (data) => {
             setArrivalMessage({
@@ -134,7 +132,7 @@ function BookDetails() {
         //     user.followings.filter((f) => users.some((u) => u.userId === f))
         //   );
         // });
-    }, [user, newConv]);
+    }, [user]);
 
 
     //  get conv
@@ -179,7 +177,6 @@ function BookDetails() {
                 text: newMessage,
                 conversationId: currentChat._id,
                 createdAt: Date.now()
-
             };
 
             const receiverId = currentChat.members.find(
@@ -190,7 +187,6 @@ function BookDetails() {
                 senderId: userId,
                 receiverId,
                 text: newMessage,
-                createdAt: Date.now()
             });
 
             try {
@@ -203,9 +199,31 @@ function BookDetails() {
         }
     };
 
+
+
+
+    useEffect(() => {
+        if (currentChat) {
+            let ownerId = currentChat.members.filter(m => m != userId)
+            const getUser = async () => {
+                try {
+                    const res = await axios(`${process.env.REACT_APP_API_URL}/getOwner/${ownerId}`);
+                    setowner(res.data);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            getUser();
+        }
+    }, [currentChat])
+
+
+
+
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages , startChat]);
+    }, [messages, startChat]);
+
 
 
 
