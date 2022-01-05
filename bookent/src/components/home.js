@@ -24,7 +24,7 @@ const Home = React.memo(props => {
 
     // for scroll fetch
     const [totalPages, settotalPages] = useState(0)
-    const [pageNum, setpageNum] = useState(0)
+    const [pageNum, setpageNum] = useState(1)
     const [booksList, setbooksList] = useState([])
     const [lastElement, setlastElement] = useState(null);
 
@@ -38,7 +38,7 @@ const Home = React.memo(props => {
         new IntersectionObserver((entries) => {
             const first = entries[0];
             if (first.isIntersecting) {
-                setpageNum(pageNum + 1);
+                setpageNum((no) => parseInt(no+1));
             }
         },
             options
