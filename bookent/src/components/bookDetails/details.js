@@ -1,11 +1,15 @@
 import BookCss from './style.module.css';
 import defaultCover from '../assets/read1.svg'
-import { lazy, useEffect } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 const Mapp = lazy(() => import('./Map2'))
+
 
 function Details({ book, user, addToFav, startConv, ownerBooks }) {
     let favBefore = false
+    const [reportModal, setreportModal] = useState(false)
+    const [report, setreport] = useState('')
 
     if (user?.favList && user?.favList.length > 0) {
         for (let i = 0; i < user?.favList.length; i++) {
@@ -34,6 +38,18 @@ function Details({ book, user, addToFav, startConv, ownerBooks }) {
             }
         }
     }
+
+
+    function RiseReport(e) {
+        e.preventDefault()
+        let sender = user._id
+        let target = book.ownerId
+        let boook = book._id
+
+        axios.post(`${process.env.REACT_APP_API_URL}/addReport`, { sender, text: report, target, boook })
+            .then((res) => alert(res.data), setreportModal(false))
+            .catch()
+    }
     return (
         <>
             <main className={BookCss.book}>
@@ -59,6 +75,11 @@ function Details({ book, user, addToFav, startConv, ownerBooks }) {
                             {user._id != book.ownerId &&
                                 <button onClick={startConv} className={BookCss.chat}>
                                     <img src='/assets/message.svg' alt='message' alt='chat' />
+                                </button>
+                            }
+                            {user._id != book.ownerId &&
+                                <button onClick={() => setreportModal(!reportModal)} className={`${BookCss.chat} ${BookCss.report}`}>
+                                    <img src='/assets/err.svg' alt='report' />
                                 </button>
                             }
                         </div>
@@ -103,6 +124,21 @@ function Details({ book, user, addToFav, startConv, ownerBooks }) {
                         </div>
                     }
                 </div>
+
+                {reportModal &&
+                    <div className={BookCss.modalOverley}>
+                        <div className={BookCss.modal}>
+                            <a className={BookCss.closeModal} onClick={()=>setreportModal(false)}>
+                                <svg viewBox="0 0 20 20">
+                                    <path fill="#000000" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+                                </svg>
+                            </a>
+                            <form onSubmit={RiseReport}>
+                                <textarea onChange={(e) => setreport(e.target.value)} placeholder='type the report ...'></textarea>
+                                <input type='submit' />
+                            </form>
+                        </div>
+                    </div>}
             </main>
         </>
     );
