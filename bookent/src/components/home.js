@@ -117,6 +117,8 @@ const Home = React.memo(props => {
         let theme = localStorage.getItem('theme')
         document.documentElement.className = theme.toString() === 'themelight' ?
             HomeCss.themelight : HomeCss.themedark
+  
+        setpageNum(1)
     }, [])
 
     function scrollTohalf() {
