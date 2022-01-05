@@ -12,13 +12,13 @@ function Welcome(props) {
                     <div className={HomeCss.half1}>
                         <div className={HomeCss.phrases}>
                             <h1>
-                                Find book some
+                                Lend some books
                             </h1>
                             <h1>
-                                <br />Where . . .
+                                <br />Now . . .
                             </h1>
                             <p>
-                                to get that mind bigger
+                                here through Bookent
                             </p>
                         </div>
 
